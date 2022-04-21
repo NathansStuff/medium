@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import PortableText from 'react-portable-text'
-import { urlFor } from '../sanity'
+import { urlFor } from '../helper/helper'
 import { Post } from '../types/typings'
 
 interface Props {

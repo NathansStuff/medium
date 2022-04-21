@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '../components/header.components'
 import PostCard from '../components/post-card.component'
 import Spanner from '../components/spanner.components'
-import { createdSanityClient } from '../sanity'
+import { getAllPostsDetailed } from '../lib/api';
 import { Post } from '../types/typings'
 
 interface Props {
@@ -28,18 +28,7 @@ export default function Home({ posts }: Props) {
 }
 
 export const getServerSideProps = async () => {
-  const query = `*[_type == "post"]{
-    _id,
-    title,
-    description,
-    mainImage,
-    slug,
-    author-> {
-      name,
-      image
-    }
-  }`
-  const posts = await createdSanityClient.fetch(query)
+   const posts = await getAllPostsDetailed()
 
   return {
     props: {

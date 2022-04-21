@@ -1,11 +1,10 @@
 import { GetStaticProps } from 'next'
-import React, { useState } from 'react'
 import Header from '../../components/header.components'
-import { createdSanityClient } from '../../sanity'
 import { Post } from '../../types/typings'
 import ArticleBody from '../../components/article-body.component'
 import CommentComponent from '../../components/comments.component'
 import CommentForm from '../../components/comment-form.component'
+import { getAllPosts, getPostBySlug } from '../../lib/api';
 
 interface Props {
   post: Post
@@ -25,13 +24,7 @@ function PostPage({ post }: Props) {
 export default PostPage
 
 export const getStaticPaths = async () => {
-  const query = `*[_type =="post"]{
-  _id,
-  slug {
-   current
-  }
- }`
-  const posts = await createdSanityClient.fetch(query)
+  const posts = await getAllPosts()
 
   const paths = posts.map((post: Post) => ({
     params: {
@@ -45,27 +38,8 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const query = `*[_type == "post" && slug.current == $slug][0]{
-  _id,
-  createdAt,
-  title,
-  author-> {
-   name,
-   image
-  },
-  'comments': *[
-  _type == "comment" &&
-  post._ref == ^._id &&
-  approved == true],
-  description,
-  mainImage,
-  slug,
-  body
- }
- `
-  const post = await createdSanityClient.fetch(query, {
-    slug: params?.slug,
-  })
+  const slug: string = (params?.slug as string) || 'test'
+  const post = await getPostBySlug(slug)
 
   if (!post) {
     return {

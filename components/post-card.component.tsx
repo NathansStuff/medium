@@ -1,13 +1,12 @@
 import Link from 'next/link'
-import React from 'react'
 import { Post } from '../types/typings'
-import { urlFor } from '../sanity'
+import { urlFor } from '../helper/helper'
 
 interface Props {
- post: Post
+  post: Post
 }
 
-function PostCard({post}: Props) {
+function PostCard({ post }: Props) {
   return (
     <Link href={`/post/${post.slug.current}`} key={post._id}>
       <div className="group cursor-pointer overflow-hidden rounded-lg border">
