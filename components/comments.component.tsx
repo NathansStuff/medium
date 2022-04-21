@@ -20,7 +20,7 @@ export default function CommentComponent({ comments }: Props) {
             <div key={comment._id}>
               <p>
                 <span className="text-yellow-500">{comment.name}:</span>{' '}
-                {comment.name}
+                {comment.comment}
               </p>
             </div>
           )
