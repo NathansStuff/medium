@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '../components/header.components'
 import PostCard from '../components/post-card.component'
 import Spanner from '../components/spanner.components'
-import { sanityClient } from '../sanity'
+import { createdSanityClient } from '../sanity'
 import { Post } from '../types/typings'
 
 interface Props {
@@ -39,7 +39,7 @@ export const getServerSideProps = async () => {
       image
     }
   }`
-  const posts = await sanityClient.fetch(query)
+  const posts = await createdSanityClient.fetch(query)
 
   return {
     props: {
