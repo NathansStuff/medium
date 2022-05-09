@@ -27,10 +27,9 @@ export default function Home({ posts }: Props) {
   )
 }
 
-export const getServerSideProps = async () => {
+export async function getStaticProps() {
    const posts = await getAllPostsDetailed()
-
-  return {
+   return {
     props: {
       posts,
     },

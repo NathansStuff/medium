@@ -5,7 +5,6 @@ interface Props {
 }
 
 export default function CommentComponent({ comments }: Props) {
-  console.log(comments)
   return (
     <div className="my-10 mx-auto flex max-w-2xl flex-col space-y-2 p-10 shadow shadow-yellow-500">
       <h3 className="text-4xl">Comments</h3>
